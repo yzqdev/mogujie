@@ -1,0 +1,27 @@
+{
+  "name": "myshop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "ncu ": "ncu &&ncu -u&&yarn"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cropperjs": "^1.5.6",
+    "mint-ui": "^2.2.13",
+    "qs": "^6.9.4",
+    "swiper": "^5.4.0",
+    "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-router": "^3.1.6",
+    "vue-socket.io": "^3.0.9",
+    "vue-upload-component": "^2.8.20"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.3.1",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
