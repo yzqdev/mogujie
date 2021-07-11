@@ -1,78 +1,80 @@
 <template>
-  <div class='cart'>
+  <div class="cart">
     <!-- narBar -->
-    <narBar class='narBar'>
-      <div slot='left'
-           @click='goBack'><span class='iconfont icon-tubiaozhizuo--'
-              style=' font-size: 25px;'></span></div>
-      <div slot='center'
-           style='letter-spacing:1.5px'>{{user}}</div>
+    <narBar class="narBar">
+      <div slot="left" @click="goBack">
+        <span
+          class="iconfont icon-tubiaozhizuo--"
+          style="font-size: 25px"
+        ></span>
+      </div>
+      <div slot="center" style="letter-spacing: 1.5px">{{ user }}</div>
     </narBar>
     <!-- 聊天记录 -->
     <ul>
-      <li v-for='(item,index) in allMessage'
-          :key='index'
-          :class='{right:item.name!==shop.name}'><img :src="item.img"><span class='text'><span>{{item.msg}}</span></span></li>
+      <li
+        v-for="(item, index) in allMessage"
+        :key="index"
+        :class="{ right: item.name !== shop.name }"
+      >
+        <img :src="item.img" /><span class="text"
+          ><span>{{ item.msg }}</span></span
+        >
+      </li>
     </ul>
     <!-- 底部 -->
-    <div class='barButtom'>
-      <input type="text"
-             v-model='message'>
-      <span class='span'
-            @click='sendMes'>发送</span>
+    <div class="barButtom">
+      <input type="text" v-model="message" />
+      <span class="span" @click="sendMes">发送</span>
     </div>
   </div>
-
 </template>
 <script>
-import narBar from '../../common/NavBar/NavBar'
+import narBar from "@/components/common/NavBar/NavBar";
 export default {
   components: {
-    narBar
+    narBar,
   },
   props: {
     // 消息
     allMessage: {
-      type: Array
+      type: Array,
     },
     // 用户
     user: {
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       // 发送消息
-      message: '',
+      message: "",
       // shop信息 目前写死的
       shop: {
-        name: '欧丽雅',
-        img: "https://s5.mogucdn.com/mlcdn/c45406/180429_73i2hdg95j7597hd6dhikikbbe4i1_200x200.jpg_120x120.webp"
-      }
-    }
+        name: "欧丽雅",
+        img: "https://s5.mogucdn.com/mlcdn/c45406/180429_73i2hdg95j7597hd6dhikikbbe4i1_200x200.jpg_120x120.webp",
+      },
+    };
   },
-  mounted () {
-    console.log(this.allMessage)
-
-
+  mounted() {
+    console.log(this.allMessage);
   },
   methods: {
-    goBack () {
-      this.$bus.$emit('goback', 'aa')
+    goBack() {
+      this.$bus.$emit("goback", "aa");
     },
-    sendMes () {
-      let obj = {}
-      obj.msg = this.message
-      obj.img = this.shop.img
-      obj.name = this.shop.name
-      obj.otherName = this.user
-      this.$bus.$emit('sendMes', obj)
-      this.$socket.emit('sendPriMes', obj)
-      this.message = ''
-
-    }
-  }
-}
+    sendMes() {
+      let obj = {};
+      obj.msg = this.message;
+      obj.img = this.shop.img;
+      obj.name = this.shop.name;
+      obj.otherName = this.user;
+      this.$bus.$emit("sendMes", obj);
+      this.$socket.emit("sendPriMes", obj);
+      this.message = "";
+    },
+  },
+};
 </script>
 <style scoped>
 .item {

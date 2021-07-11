@@ -3,9 +3,8 @@
     <slot></slot>
   </div>
 </template>
-<script>
-</script>
-<style  scoped>
+<script></script>
+<style scoped>
 #tab-bar {
   display: flex;
   background: #f6f6f6;

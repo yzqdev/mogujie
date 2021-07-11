@@ -1,183 +1,197 @@
-<template >
-  <div class='good'>
+<template>
+  <div class="good">
     <!-- head -->
     <headApp></headApp>
     <!-- gobackBtn -->
-    <div class='goback'>
-      <span class='iconfont icon-tubiaozhizuo--'
-            @click='goback'></span>
+    <div class="goback">
+      <span class="iconfont icon-tubiaozhizuo--" @click="goback"></span>
     </div>
     <!-- swiper -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"
-             v-for='(item,index) in detail.s_img_more'
-             :key='index'><img :src='item'
-               alt=""></div>
+        <div
+          class="swiper-slide"
+          v-for="(item, index) in detail.s_img_more"
+          :key="index"
+        >
+          <img :src="item" alt="" />
+        </div>
       </div>
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
     </div>
     <!-- price -->
-    <div class='price-number'>
-      <span>¥{{detail.s_newPrice}}</span>
-      <span>¥{{detail.s_oldPrice}}</span>
-      <span>{{remise}}折</span>
+    <div class="price-number">
+      <span>¥{{ detail.s_newPrice }}</span>
+      <span>¥{{ detail.s_oldPrice }}</span>
+      <span>{{ remise }}折</span>
     </div>
     <!--  describle-->
-    <div class='describle'>
-      <div>{{detail.s_msg}}</div>
+    <div class="describle">
+      <div>{{ detail.s_msg }}</div>
       <div>
-        <span>{{detail.s_transport}}</span>
-        <span>{{detail.s_adress}}</span>
+        <span>{{ detail.s_transport }}</span>
+        <span>{{ detail.s_adress }}</span>
       </div>
     </div>
     <!-- service -->
-    <div class='service'>
-      <div class='service-div'>
-        <div v-for='(item,index) in detail.s_sendDescribe'
-             :key='index'><img src="https://s10.mogucdn.com/mlcdn/c45406/180417_25kbfg1c3hdbd120394ji4b11bk2k_36x36.png_80x80.v1cAC.40.webp"
-               alt="">{{item}}</div>
-        <span class='iconfont icon-qianjin'></span>
+    <div class="service">
+      <div class="service-div">
+        <div v-for="(item, index) in detail.s_sendDescribe" :key="index">
+          <img
+            src="https://s10.mogucdn.com/mlcdn/c45406/180417_25kbfg1c3hdbd120394ji4b11bk2k_36x36.png_80x80.v1cAC.40.webp"
+            alt=""
+          />{{ item }}
+        </div>
+        <span class="iconfont icon-qianjin"></span>
       </div>
     </div>
     <!-- select -->
-    <div class='select'
-         @click='goBuy'>
+    <div class="select" @click="goBuy">
       <div>请选择：尺码</div>
-      <div><span class='iconfont icon-qianjin'
-              style='font-size:12px'></span></div>
+      <div>
+        <span class="iconfont icon-qianjin" style="font-size: 12px"></span>
+      </div>
     </div>
     <!-- reconmend -->
-    <div class='reconmend'>
-      <div class='reconmend-head'>
-        <div>买家评价 {{recommend.length}} | 销量 {{recommend.length}} </div>
-        <div><span class='iconfont icon-qianjin'
-                style='font-size:12px'></span></div>
-      </div>
-      <div class='tag'
-           v-show='false'>
-      </div>
-      <div class='user'
-           v-for='(item,index) in recommend'
-           :key='index'>
-        <div class='img-name'>
-          <img :src="item.img"
-               alt="">
-          {{item.name}}
+    <div class="reconmend">
+      <div class="reconmend-head">
+        <div>买家评价 {{ recommend.length }} | 销量 {{ recommend.length }}</div>
+        <div>
+          <span class="iconfont icon-qianjin" style="font-size: 12px"></span>
         </div>
-        <div class='user-text'>
-          {{item.text}}
+      </div>
+      <div class="tag" v-show="false"></div>
+      <div class="user" v-for="(item, index) in recommend" :key="index">
+        <div class="img-name">
+          <img :src="item.img" alt="" />
+          {{ item.name }}
         </div>
-        <div class='user-time'>{{item.date}}</div>
+        <div class="user-text">
+          {{ item.text }}
+        </div>
+        <div class="user-time">{{ item.date }}</div>
       </div>
     </div>
     <!-- shop -->
-    <div class='shop'>
-      <div class='shop-div'>
-        <div><img :src="shop.img"
-               alt=""></div>
-        <div style=' padding-left: 10px;'>
-          <div id='shop-div1'>
-            <div>{{shop.name}}</div>
-            <div><span class='iconfont icon-qianjin'
-                    style='font-size:12px'></span></div>
-          </div>
-          <div id='shop-div2'>
+    <div class="shop">
+      <div class="shop-div">
+        <div><img :src="shop.img" alt="" /></div>
+        <div style="padding-left: 10px">
+          <div id="shop-div1">
+            <div>{{ shop.name }}</div>
             <div>
-              <img v-for='(item,index) in Array(shop.number)'
-                   :key='index'
-                   src="https://s10.mogucdn.com/mlcdn/c45406/200205_2eg19cl3528hj8ihbc21ci5l0k857_44x44.png"
-                   alt=""
-                   style='width:10px;height:10px'>
+              <span
+                class="iconfont icon-qianjin"
+                style="font-size: 12px"
+              ></span>
             </div>
-            <div>在售商品{{shop.shopItem}}</div>
           </div>
-          <div id='shop-div3'>
-            <span>{{shop.lovePerson}}人关注</span>
-            <span>累计销量{{shop.vendre}}万+</span>
+          <div id="shop-div2">
+            <div>
+              <img
+                v-for="(item, index) in Array(shop.number)"
+                :key="index"
+                src="https://s10.mogucdn.com/mlcdn/c45406/200205_2eg19cl3528hj8ihbc21ci5l0k857_44x44.png"
+                alt=""
+                style="width: 10px; height: 10px"
+              />
+            </div>
+            <div>在售商品{{ shop.shopItem }}</div>
+          </div>
+          <div id="shop-div3">
+            <span>{{ shop.lovePerson }}人关注</span>
+            <span>累计销量{{ shop.vendre }}万+</span>
           </div>
         </div>
       </div>
     </div>
     <!-- bottom -->
-    <div class='bottom-nar'>
-      <div><span class='iconfont icon-shoppingcopy'
-              style='font-size:20px'></span>
-        <span>店铺</span></div>
+    <div class="bottom-nar">
       <div>
-        <span class='iconfont icon-xiaoxi'
-              style='color:red;font-size:20px;'></span>
-        <span @click='goChat'>客服</span>
+        <span class="iconfont icon-shoppingcopy" style="font-size: 20px"></span>
+        <span>店铺</span>
       </div>
-      <div @click='collect'
-           :class='{red:isCollect}'>
-        <span class='iconfont icon-collect'></span>
+      <div>
+        <span
+          class="iconfont icon-xiaoxi"
+          style="color: red; font-size: 20px"
+        ></span>
+        <span @click="goChat">客服</span>
+      </div>
+      <div @click="collect" :class="{ red: isCollect }">
+        <span class="iconfont icon-collect"></span>
         <span>收藏</span>
       </div>
-      <div @click='isShowBuy=true'>加入购物车</div>
+      <div @click="isShowBuy = true">加入购物车</div>
       <div>购买商品</div>
     </div>
     <!-- gocart -->
-    <div class='bottom-buy'
-         v-show='isShowBuy'>
-      <div class='bottom-buy-head'>
-        <div><img :src="detail.s_img_one"
-               alt=""></div>
+    <div class="bottom-buy" v-show="isShowBuy">
+      <div class="bottom-buy-head">
+        <div><img :src="detail.s_img_one" alt="" /></div>
         <div>
-          <div>¥{{detail.s_newPrice}}</div>
+          <div>¥{{ detail.s_newPrice }}</div>
           <div>库存1245</div>
-          <div>已选择:{{isShop_type+' ' +isShop_size}}</div>
+          <div>已选择:{{ isShop_type + " " + isShop_size }}</div>
         </div>
       </div>
-      <div class='bottom-buy-type'>
+      <div class="bottom-buy-type">
         <p>颜色</p>
         <div>
-          <div v-for='(item,index) in shop_type'
-               :key='index'
-               @click='changeType(item)'
-               :class='item===isShop_type?"red":""'>{{item}}</div>
-
+          <div
+            v-for="(item, index) in shop_type"
+            :key="index"
+            @click="changeType(item)"
+            :class="item === isShop_type ? 'red' : ''"
+          >
+            {{ item }}
+          </div>
         </div>
       </div>
-      <div class='bottom-buy-size'>
+      <div class="bottom-buy-size">
         <p>尺寸</p>
         <div>
-          <div v-for='(item,index) in shop_size'
-               :key='index'
-               @click='changeSize(item)'
-               :class='item===isShop_size?"red":""'>{{item}}</div>
+          <div
+            v-for="(item, index) in shop_size"
+            :key="index"
+            @click="changeSize(item)"
+            :class="item === isShop_size ? 'red' : ''"
+          >
+            {{ item }}
+          </div>
         </div>
       </div>
-      <p style='font-size:12px'>数量</p>
-      <div class='bottom-buy-num'>
-        <div @click='num--'>-</div>
-        <div>{{num}}</div>
-        <div @click='num++'>+</div>
+      <p style="font-size: 12px">数量</p>
+      <div class="bottom-buy-num">
+        <div @click="num--">-</div>
+        <div>{{ num }}</div>
+        <div @click="num++">+</div>
       </div>
-      <div class='bottom-buy-bottom'>
-        <div @click='addCart'>加入购物车</div>
+      <div class="bottom-buy-bottom">
+        <div @click="addCart">加入购物车</div>
         <div>立即购买</div>
       </div>
-      <div class='bottom-buy-delete'
-           @click='isShowBuy=!isShowBuy'>X</div>
+      <div class="bottom-buy-delete" @click="isShowBuy = !isShowBuy">X</div>
     </div>
     <!-- filter -->
-    <div style='width:375px;height:100vh'
-         :class={all:isShowBuy}
-         v-show='isShowBuy'></div>
+    <div
+      style="width: 375px; height: 100vh"
+      :class="{ all: isShowBuy }"
+      v-show="isShowBuy"
+    ></div>
   </div>
 </template>
 
 <script>
-import headApp from '../profile/head'
-import Swiper from 'swiper'
-import 'swiper/css/swiper.min.css'
+import headApp from "../profile/head";
+import Swiper from "swiper";
+import "swiper/css/swiper.min.css";
 export default {
   components: {
-    headApp
+    headApp,
   },
-  data () {
+  data() {
     return {
       // 商品信息
       detail: {},
@@ -188,24 +202,24 @@ export default {
       isShowBuy: false,
       num: 1,
       // 商品选中的类型
-      isShop_type: '',
+      isShop_type: "",
       // 商品选中的大小
-      isShop_size: '',
+      isShop_size: "",
       shop_type: [],
       shop_size: [],
       shopType: {},
       // 是否收藏
-      isCollect: false
-    }
+      isCollect: false,
+    };
   },
   computed: {
     // 折扣
-    remise () {
-      return Math.floor(this.detail.s_newPrice / this.detail.s_oldPrice * 10)
-    }
+    remise() {
+      return Math.floor((this.detail.s_newPrice / this.detail.s_oldPrice) * 10);
+    },
   },
-  created () {
-    new Swiper('.swiper-container', {
+  created() {
+    new Swiper(".swiper-container", {
       spaceBetween: 30,
       centeredSlides: true,
       initialSlide: 0,
@@ -213,18 +227,18 @@ export default {
       observerParents: true,
       autoplay: {
         delay: 2500,
-        disableOnInteraction: false
+        disableOnInteraction: false,
       },
       pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      }
-    })
-    this.getDetail()
-    this.IsCollect()
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+    this.getDetail();
+    this.IsCollect();
   },
-  activated () {
-    new Swiper('.swiper-container', {
+  activated() {
+    new Swiper(".swiper-container", {
       spaceBetween: 30,
       centeredSlides: true,
       initialSlide: 0,
@@ -232,118 +246,117 @@ export default {
       observerParents: true,
       autoplay: {
         delay: 2500,
-        disableOnInteraction: false
+        disableOnInteraction: false,
       },
       pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      }
-    })
-    this.getDetail()
-    this.IsCollect()
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+    this.getDetail();
+    this.IsCollect();
   },
   watch: {
-    num (newVal) {
+    num(newVal) {
       if (newVal < 1) {
-        this.num = 1
+        this.num = 1;
       }
-    }
+    },
   },
   methods: {
     //获取商品信息
-    async getDetail () {
-      let id = this.$route.params.id
-      let obj = { s_uid: id }
+    async getDetail() {
+      let id = this.$route.params.id;
+      let obj = { s_uid: id };
       const result = await this.$http({
-        method: 'post',
-        url: 'api/shops/getDetail',
+        method: "post",
+        url: "api/shops/getDetail",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
         },
-        data: this.$qs.stringify(obj)
-      })
-      this.detail = result.data
-      this.recommend = result.data.s_shop_recommend
-      this.shop = JSON.parse(this.detail.s_shop_mes)
-      this.shopType = JSON.parse(this.detail.s_shop_type)
+        data: this.$qs.stringify(obj),
+      });
+      this.detail = result.data;
+      this.recommend = result.data.s_shop_recommend;
+      this.shop = JSON.parse(this.detail.s_shop_mes);
+      this.shopType = JSON.parse(this.detail.s_shop_type);
 
-      this.handleType(this.shopType)
+      this.handleType(this.shopType);
     },
-    async collect () {
+    async collect() {
       // 收藏
       if (!this.isCollect) {
         const result = await this.$http({
-          method: 'post',
-          url: 'api/users/addCollect',
+          method: "post",
+          url: "api/users/addCollect",
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
           },
-          data: this.$qs.stringify({ uid: this.$route.params.id })
-        })
-        console.log(result)
-        this.isCollect = true
+          data: this.$qs.stringify({ uid: this.$route.params.id }),
+        });
+        console.log(result);
+        this.isCollect = true;
       } else {
         const result = await this.$http({
-          method: 'post',
-          url: 'api/users/deleteCollect',
+          method: "post",
+          url: "api/users/deleteCollect",
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
           },
-          data: this.$qs.stringify({ uid: this.$route.params.id })
-        })
-        console.log(result)
-        this.isCollect = false
+          data: this.$qs.stringify({ uid: this.$route.params.id }),
+        });
+        console.log(result);
+        this.isCollect = false;
       }
-
     },
-    goback () {
-      this.$router.go(-1)
+    goback() {
+      this.$router.go(-1);
     },
     // 获取用户收藏
-    async IsCollect () {
-      this.isCollect = false
+    async IsCollect() {
+      this.isCollect = false;
       const result = await this.$http({
-        method: 'get',
-        url: 'api/users/userInfo',
+        method: "get",
+        url: "api/users/userInfo",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-        }
-      })
-      let collects = result.data.data.user_collect
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
+      let collects = result.data.data.user_collect;
 
-      let id = this.$route.params.id
-      console.log(collects, id)
+      let id = this.$route.params.id;
+      console.log(collects, id);
       for (let i = 0; i < collects.length; i++) {
         if (id === collects[i]) {
-          this.isCollect = true
-          return
+          this.isCollect = true;
+          return;
         }
       }
     },
 
     //点击加入购物车
-    goBuy () {
-      this.isShowBuy = true
+    goBuy() {
+      this.isShowBuy = true;
     },
     //处理商品类型
-    handleType (obj) {
-      this.shop_type = Object.keys(obj)
-      this.isShop_type = this.shop_type[0]
-      this.shop_size = Object.keys(obj[this.shop_type[0]])
-      this.isShop_size = this.shop_size[0]
+    handleType(obj) {
+      this.shop_type = Object.keys(obj);
+      this.isShop_type = this.shop_type[0];
+      this.shop_size = Object.keys(obj[this.shop_type[0]]);
+      this.isShop_size = this.shop_size[0];
     },
     //点击改变颜色类型
-    changeType (item) {
+    changeType(item) {
       // this.shop_size = Object.keys(this.shopType[item])
-      this.isShop_type = item
+      this.isShop_type = item;
       // this.isShop_size = this.shop_size[0]
     },
     //点击改变大小
-    changeSize (item) {
-      this.isShop_size = item
+    changeSize(item) {
+      this.isShop_size = item;
     },
     // 添加购物车
-    async addCart () {
+    async addCart() {
       let obj = {
         img: this.detail.s_img_one,
         text: this.detail.s_msg,
@@ -354,37 +367,38 @@ export default {
         shop: this.shop.name,
         uid: this.$route.params.id,
         // 是否选中 用于购物车
-        isOk: false
-      }
+        isOk: false,
+      };
       await this.$http({
-        method: 'post',
-        url: 'api/users/addCart',
+        method: "post",
+        url: "api/users/addCart",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
         },
-        data: this.$qs.stringify(obj)
-      })
-      this.$alert.success('加入购物车成功', 1000)
-      this.isShowBuy = false
+        data: this.$qs.stringify(obj),
+      });
+      this.$alert.success("加入购物车成功", 1000);
+      this.isShowBuy = false;
     },
     // 聊天
-    goChat () {
+    goChat() {
       this.$router.push({
-        name: 'chat',
+        name: "chat",
         params: {
           shop: {
             name: this.shop.name,
-            img: this.shop.img
+            img: this.shop.img,
           },
           item: {
             img: this.detail.s_img_one,
             text: this.detail.s_msg,
-            price: this.detail.s_newPrice
-          }
-        }      })
-    }
-  }
-}
+            price: this.detail.s_newPrice,
+          },
+        },
+      });
+    },
+  },
+};
 </script>
 <style scoped>
 .swiper-container {

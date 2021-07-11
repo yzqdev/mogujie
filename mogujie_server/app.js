@@ -8,25 +8,25 @@ let serve = require('koa-static')
 let shops = require('./router/api/shopItem')
 let app = new koa()
 let router = new Router()
-let cors = require('koa2-cors')
+let cors = require('koa-cors')
 
 // socket.io
 const server = require('http').createServer(app.callback())
-const io = require('socket.io')(server)
-const port = 8081
+const io = require('socket.io')(server, { cors: {
+    origin: "http://localhost:8021",
+    methods: ["GET", "POST"],
+    credentials: true
+  }});
+
+const port = 8020
 // 跨域
-// app.use(cors())
+app.use(cors());
 // 静态资源
 app.use(serve(__dirname + "/public"))
 
 app.use(bodyParser())
 // 坑，要使用async await 设置，否则响应不了数据
-app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Origin', '*')
-  ctx.set('Access-Control-Allow-Headers', '*')
-  ctx.set("Access-Control-Expose-Headers", '*')
-  await next()
-})
+
 
 app.use(jwt({ secret: 'shhhh', passthrough: true }))
 db.then(() => {
@@ -55,4 +55,4 @@ io.on('connection', socket => {
 })
 
 app.use(router.routes()).use(router.allowedMethods())
-server.listen(3000)
+server.listen(port)

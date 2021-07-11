@@ -1,224 +1,232 @@
 <template>
-  <div class='cart'>
+  <div class="cart">
     <!-- narBar -->
-    <narBar class='narBar'>
-      <div slot='left'
-           @click='goBack'><span class='iconfont icon-tubiaozhizuo--'
-              style=' font-size: 25px;'></span></div>
-      <div slot='center'>购物车（{{isAllNum}}）</div>
+    <narBar class="narBar">
+      <div slot="left" @click="goBack">
+        <span
+          class="iconfont icon-tubiaozhizuo--"
+          style="font-size: 25px"
+        ></span>
+      </div>
+      <div slot="center">购物车（{{ isAllNum }}）</div>
     </narBar>
     <!-- 商品 -->
-    <div class='cart-listItem'
-         v-for='(item,index) in shop'
-         :key='index'>
-      <div class='cart-list-head'>
-        <div class='cart-list-head-btn'
-             @click='shopBtn(item)'><span :class='["iconfont", "icon-icon-test-copy"]'
-                v-show='isShop[item]'></span></div>
-        <div>{{item}}</div>
+    <div class="cart-listItem" v-for="(item, index) in shop" :key="index">
+      <div class="cart-list-head">
+        <div class="cart-list-head-btn" @click="shopBtn(item)">
+          <span
+            :class="['iconfont', 'icon-icon-test-copy']"
+            v-show="isShop[item]"
+          ></span>
+        </div>
+        <div>{{ item }}</div>
       </div>
-      <div class='cart-list-item'
-           v-for='(item1,index1) in cartList[item]'
-           :key='index1'>
-        <div class='cart-list-item-btn'
-             @click="oneBtn(item1)"><span class='iconfont icon-icon-test-copy'
-                v-show='item1["isOk"]'></span></div>
-        <img :src="item1.img"
-             alt="">
-        <div class='cart-list-item-text'>{{item1.text}}</div>
-        <span class='cart-list-item-dec'>颜色：{{item1.type+item1.size}}</span>
-        <span class='cart-list-item-downPrice'>降价20元</span>
-        <span class='cart-list-item-price'>${{item1.price}}</span>
-        <div class='cart-list-item-number'>
-          <span @click='item1.num--'>-</span>
-          <span>{{item1.num}}</span>
-          <span @click='item1.num++'>+</span>
+      <div
+        class="cart-list-item"
+        v-for="(item1, index1) in cartList[item]"
+        :key="index1"
+      >
+        <div class="cart-list-item-btn" @click="oneBtn(item1)">
+          <span
+            class="iconfont icon-icon-test-copy"
+            v-show="item1['isOk']"
+          ></span>
+        </div>
+        <img :src="item1.img" alt="" />
+        <div class="cart-list-item-text">{{ item1.text }}</div>
+        <span class="cart-list-item-dec"
+          >颜色：{{ item1.type + item1.size }}</span
+        >
+        <span class="cart-list-item-downPrice">降价20元</span>
+        <span class="cart-list-item-price">${{ item1.price }}</span>
+        <div class="cart-list-item-number">
+          <span @click="item1.num--">-</span>
+          <span>{{ item1.num }}</span>
+          <span @click="item1.num++">+</span>
         </div>
       </div>
     </div>
     <!-- 底部 -->
-    <div class='bottom-nar'>
-      <div class='cart-list-bottom-btn'
-           @click='isAllBtn'><span class='iconfont icon-icon-test-copy'
-              v-show='isBigBtn'></span></div>
-      <div style='width:200px'>全选({{isComfirmNum}})</div>
-      <div>￥{{isAllPrice}} </div>
-      <div @click='goOrder'>结算</div>
+    <div class="bottom-nar">
+      <div class="cart-list-bottom-btn" @click="isAllBtn">
+        <span class="iconfont icon-icon-test-copy" v-show="isBigBtn"></span>
+      </div>
+      <div style="width: 200px">全选({{ isComfirmNum }})</div>
+      <div>￥{{ isAllPrice }}</div>
+      <div @click="goOrder">结算</div>
     </div>
   </div>
 </template>
 <script>
-import narBar from '../../common/NavBar/NavBar'
+import narBar from "@/components/common/NavBar/NavBar";
 export default {
   components: {
-    narBar
+    narBar,
   },
-  data () {
+  data() {
     return {
       cartList: {},
       shop: [],
-      isShop: {
-      },
-      isBigBtn: false
-    }
+      isShop: {},
+      isBigBtn: false,
+    };
   },
-  created () {
-    this.getCart()
-    this.changeBtn()
-    this.isBigBtn = false
+  created() {
+    this.getCart();
+    this.changeBtn();
+    this.isBigBtn = false;
   },
-  activated () {
-    this.getCart()
-    this.changeBtn()
-    this.isBigBtn = false
+  activated() {
+    this.getCart();
+    this.changeBtn();
+    this.isBigBtn = false;
   },
   computed: {
     // 总价钱
-    isAllPrice () {
+    isAllPrice() {
       let allPrice = 0;
       for (let i = 0; i < this.shop.length; i++) {
         this.cartList[this.shop[i]].forEach((item) => {
-          if (item['isOk']) {
-            allPrice = Number(allPrice) + Number(item.price) * Number(item.num)
+          if (item["isOk"]) {
+            allPrice = Number(allPrice) + Number(item.price) * Number(item.num);
           }
-        })
+        });
       }
-      return allPrice
+      return allPrice;
     },
-    isAllNum () {
+    isAllNum() {
       let allNum = 0;
       for (let i = 0; i < this.shop.length; i++) {
         this.cartList[this.shop[i]].forEach((item) => {
-          allNum = Number(allNum) + Number(item.num)
-        })
+          allNum = Number(allNum) + Number(item.num);
+        });
       }
-      return allNum
+      return allNum;
     },
-    isComfirmNum () {
+    isComfirmNum() {
       let allNum = 0;
       for (let i = 0; i < this.shop.length; i++) {
         this.cartList[this.shop[i]].forEach((item) => {
-          if (item['isOk']) {
-            allNum = Number(allNum) + Number(item.num)
+          if (item["isOk"]) {
+            allNum = Number(allNum) + Number(item.num);
           }
-        })
+        });
       }
-      return allNum
-    }
+      return allNum;
+    },
   },
   methods: {
-    async  getCart () {
+    async getCart() {
       const result = await this.$http({
-        method: 'get',
-        url: 'api/users/userInfo',
+        method: "get",
+        url: "api/users/userInfo",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-        }
-      })
-      this.cartList = result.data.data["user_cart"]
-      this.changeBtn()
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
+      this.cartList = result.data.data["user_cart"];
+      this.changeBtn();
       // 商店
-      this.shop = Object.keys(this.cartList)
+      this.shop = Object.keys(this.cartList);
       this.shop.forEach((item) => {
-        this.$set(this.isShop, item, false)
+        this.$set(this.isShop, item, false);
         this.cartList[item].forEach((arr) => {
-          arr.isOk = JSON.parse(arr.isOk)
-        })
-      })
-      console.log(this.cartList)
+          arr.isOk = JSON.parse(arr.isOk);
+        });
+      });
+      console.log(this.cartList);
     },
-    shopBtn (item) {
-      this.isShop[item] = !this.isShop[item]
+    shopBtn(item) {
+      this.isShop[item] = !this.isShop[item];
       if (!this.isShop[item]) {
-        this.cartList[item].forEach(item1 => {
-          item1.isOk = false
-        })
+        this.cartList[item].forEach((item1) => {
+          item1.isOk = false;
+        });
       }
-      this.change1Btn()
-      this.changeBtn()
-      this.change2btn()
+      this.change1Btn();
+      this.changeBtn();
+      this.change2btn();
     },
-    isAllBtn () {
-      this.isBigBtn = !this.isBigBtn
+    isAllBtn() {
+      this.isBigBtn = !this.isBigBtn;
       if (this.isBigBtn === true) {
         for (let j = 0; j < this.shop.length; j++) {
-          this.isShop[this.shop[j]] = true
+          this.isShop[this.shop[j]] = true;
         }
       } else {
         for (let i = 0; i < this.shop.length; i++) {
-
-          this.isShop[this.shop[i]] = false
-          this.cartList[this.shop[i]].forEach(item1 => {
-            item1.isOk = false
-          })
+          this.isShop[this.shop[i]] = false;
+          this.cartList[this.shop[i]].forEach((item1) => {
+            item1.isOk = false;
+          });
         }
       }
-      this.change1Btn()
-      this.changeBtn()
+      this.change1Btn();
+      this.changeBtn();
     },
-    oneBtn (item) {
-      console.log(1)
-      item.isOk = !item.isOk
-      this.changeBtn()
-      this.change1Btn()
-      this.change2btn()
+    oneBtn(item) {
+      console.log(1);
+      item.isOk = !item.isOk;
+      this.changeBtn();
+      this.change1Btn();
+      this.change2btn();
     },
     // 判断商品全选按钮影响商店
-    changeBtn () {
+    changeBtn() {
       for (let i = 0; i < this.shop.length; i++) {
         let result = this.cartList[this.shop[i]].every((item) => {
-          item.isOk = JSON.parse(item.isOk)
-          return item.isOk === true
-        })
+          item.isOk = JSON.parse(item.isOk);
+          return item.isOk === true;
+        });
         if (result) {
-          this.isShop[this.shop[i]] = true
+          this.isShop[this.shop[i]] = true;
         } else {
-          this.isShop[this.shop[i]] = false
+          this.isShop[this.shop[i]] = false;
         }
       }
     },
     //     判断商店全选 影响商品
-    change1Btn () {
+    change1Btn() {
       for (let j = 0; j < this.shop.length; j++) {
         if (this.isShop[this.shop[j]] == true) {
           this.cartList[this.shop[j]].forEach((item) => {
-            item.isOk = true
-          })
+            item.isOk = true;
+          });
         }
       }
     },
     // 判断商店影响 全选
-    change2btn () {
+    change2btn() {
       let result = this.shop.every((item) => {
-        return this.isShop[item] === true
-      })
+        return this.isShop[item] === true;
+      });
       if (!result) {
-        this.isBigBtn = false
+        this.isBigBtn = false;
       } else {
-        this.isBigBtn = true
+        this.isBigBtn = true;
       }
     },
-    goBack () {
-      this.$router.push('/home')
+    goBack() {
+      this.$router.push("/home");
     },
-    goOrder () {
-      let obj = []
+    goOrder() {
+      let obj = [];
       for (let i = 0; i < this.shop.length; i++) {
         this.cartList[this.shop[i]].forEach((item) => {
-          console.log(item['isOk'])
-          if (item['isOk']) {
-            obj.push(item)
+          console.log(item["isOk"]);
+          if (item["isOk"]) {
+            obj.push(item);
           }
-        })
+        });
       }
       if (obj.length === 0) {
-        this.$alert.error('请选择商品', 1000)
-        return true
+        this.$alert.error("请选择商品", 1000);
+        return true;
       }
-      this.$router.push({ name: 'order', params: { obj } })
-    }
-  }
-}
+      this.$router.push({ name: "order", params: { obj } });
+    },
+  },
+};
 </script>
 <style scoped>
 .cart {

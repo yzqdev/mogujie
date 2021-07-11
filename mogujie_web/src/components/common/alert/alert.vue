@@ -1,42 +1,40 @@
 <template>
   <div>
-    <span class='toast'
-          v-show='isShow'
-          :class='color'>
-      {{message}}
+    <span class="toast" v-show="isShow" :class="color">
+      {{ message }}
     </span>
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
-      message: '',
+      message: "",
       isShow: false,
-      color: '',
-    }
+      color: "",
+    };
   },
   methods: {
-    success (message, duration) {
-      this.color = 'green'
-      this.message = message
-      this.isShow = true
+    success(message, duration) {
+      this.color = "green";
+      this.message = message;
+      this.isShow = true;
       setTimeout(() => {
-        this.isShow = false
-        this.message = ''
-      }, duration)
+        this.isShow = false;
+        this.message = "";
+      }, duration);
     },
-    error (message, duration) {
-      this.color = 'red'
-      this.message = message
-      this.isShow = true
+    error(message, duration) {
+      this.color = "red";
+      this.message = message;
+      this.isShow = true;
       setTimeout(() => {
-        this.isShow = false
-        this.message = ''
-      }, duration)
-    }
-  }
-}
+        this.isShow = false;
+        this.message = "";
+      }, duration);
+    },
+  },
+};
 </script>
 <style scoped>
 .toast {

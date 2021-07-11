@@ -1,105 +1,114 @@
 <template>
   <div>
     <!-- 搜索框 -->
-    <div class='search'>
-      <input type="text"
-             placeholder="男衣"
-             v-model='searchText'
-             ref='input'>
-      <span @click='serach'>搜索</span>
+    <div class="search">
+      <input type="text" placeholder="男衣" v-model="searchText" ref="input" />
+      <span @click="serach">搜索</span>
     </div>
     <!-- 搜索历史 -->
-    <div class='search-history'>
-      <div class='search-history-top'>
+    <div class="search-history">
+      <div class="search-history-top">
         <span class="iconfont icon-sousuo"></span>
         <span>搜索历史</span>
-        <span @click='deleteSerachText'>X</span>
+        <span @click="deleteSerachText">X</span>
       </div>
-      <div class='search-history-title'>
-        <div v-for="(item,index) in searchHistory"
-             :key='index'><span>{{item}}</span></div>
+      <div class="search-history-title">
+        <div v-for="(item, index) in searchHistory" :key="index">
+          <span>{{ item }}</span>
+        </div>
       </div>
     </div>
     <!-- 搜索推荐 -->
-    <div class='search-recommend'>
-      <div class='search-recommend-top'>
-        <span class='iconfont icon-collect'></span>
+    <div class="search-recommend">
+      <div class="search-recommend-top">
+        <span class="iconfont icon-collect"></span>
         <span>热门推荐</span>
       </div>
-      <div class='search-recommend-title'>
-        <div v-for='(item,index) in searchRecommend'
-             :key='index'
-             :class='index==2?"red":""'><span>{{item}}</span></div>
+      <div class="search-recommend-title">
+        <div
+          v-for="(item, index) in searchRecommend"
+          :key="index"
+          :class="index == 2 ? 'red' : ''"
+        >
+          <span>{{ item }}</span>
+        </div>
       </div>
-
     </div>
   </div>
 </template>
 <script>
 export default {
-  components: {
-  },
-  data () {
+  components: {},
+  data() {
     return {
       // 搜索内容
-      searchText: '',
+      searchText: "",
       // 搜索历史
-      searchHistory: ['aadsasdasd', 'asdasdasdas', 'asdasdascva', 'asda', 'asdhuoasd'],
+      searchHistory: [
+        "aadsasdasd",
+        "asdasdasdas",
+        "asdasdascva",
+        "asda",
+        "asdhuoasd",
+      ],
       // 搜索推荐
-      searchRecommend: ['男衣', '阿迪达斯', '安德玛', '耐克']
-    }
+      searchRecommend: ["男衣", "阿迪达斯", "安德玛", "耐克"],
+    };
   },
-  created () {
-    this.getSerachText()
+  created() {
+    this.getSerachText();
   },
-  activated () {
-    this.$refs.input.focus()
+  activated() {
+    this.$refs.input.focus();
   },
   methods: {
     // 点击搜索按钮
-    serach () {
-      this.addSerachText()
-      this.getSerachText()
-      this.$router.push({ name: 'serachItem', params: { searchText: this.searchText } })
+    serach() {
+      this.addSerachText();
+      this.getSerachText();
+      this.$router.push({
+        name: "serachItem",
+        params: { searchText: this.searchText },
+      });
     },
     // 获取搜索历史
-    async getSerachText () {
+    async getSerachText() {
       const result = await this.$http({
-        method: 'get',
-        url: 'api/users/searchHistory',
+        method: "get",
+        url: "api/users/searchHistory",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-        }
-      })
-      console.log(result)
-      this.searchHistory = result.data.data
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
+      console.log(result);
+      this.searchHistory = result.data.data;
     },
     // 添加搜索历史
-    async addSerachText () {
+    async addSerachText() {
       const result = await this.$http({
-        method: 'post',
-        url: 'api/users/searchHistory',
+        method: "post",
+        url: "api/users/searchHistory",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
         },
-        data: this.$qs.stringify({ searchText: this.searchText })
-      })
-      console.log(result)
+        data: this.$qs.stringify({ searchText: this.searchText }),
+      });
+      console.log(result);
     },
     // 删除搜索历史
-    async deleteSerachText () {
+    async deleteSerachText() {
       const result = await this.$http({
-        method: 'get',
-        url: 'api/users/deletrSearchHistory',
+        method: "get",
+        url: "api/users/deletrSearchHistory",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-        }
-      })
-      console.log(result)
-      this.getSerachText()
-    }
-  }
-}
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
+      console.log(result);
+      this.getSerachText();
+    },
+  },
+};
 </script>
 <style scoped>
 input {

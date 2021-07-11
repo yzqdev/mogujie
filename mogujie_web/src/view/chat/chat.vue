@@ -1,44 +1,55 @@
 <template>
-  <div class='cart'>
+  <div class="cart">
     <!-- narBar -->
-    <narBar class='narBar'>
-      <div slot='left'
-           @click='goBack'><span class='iconfont icon-tubiaozhizuo--'
-              style=' font-size: 25px;'></span></div>
-      <div slot='center'
-           style='letter-spacing:1.5px'>{{shopName}}</div>
+    <narBar class="narBar">
+      <div slot="left" @click="goBack">
+        <span
+          class="iconfont icon-tubiaozhizuo--"
+          style="font-size: 25px"
+        ></span>
+      </div>
+      <div slot="center" style="letter-spacing: 1.5px">{{ shopName }}</div>
     </narBar>
     <!-- 商品链接 -->
-    <div class='item'>
-      <div><img :src="shop.img"></div>
+    <div class="item">
+      <div><img :src="shop.img" /></div>
       <div>
-        <div class='itemTop'><span>{{item.text}}</span><span>x</span></div>
-        <div class='itemBottom'><span>¥{{item.price}}</span><span>发送链接</span></div>
+        <div class="itemTop">
+          <span>{{ item.text }}</span
+          ><span>x</span>
+        </div>
+        <div class="itemBottom">
+          <span>¥{{ item.price }}</span
+          ><span>发送链接</span>
+        </div>
       </div>
     </div>
     <!-- 聊天记录 -->
     <ul>
-      <li v-for='(item,index) in mesAll[shop.name]'
-          :key='index'
-          :class='{right:item.name!==user.name}'><img :src="item.img"><span class='text'><span>{{item.msg}}</span></span></li>
+      <li
+        v-for="(item, index) in mesAll[shop.name]"
+        :key="index"
+        :class="{ right: item.name !== user.name }"
+      >
+        <img :src="item.img" /><span class="text"
+          ><span>{{ item.msg }}</span></span
+        >
+      </li>
     </ul>
     <!-- 底部 -->
-    <div class='barButtom'>
-      <input type="text"
-             v-model='message'>
-      <span class='span'
-            @click='sendMes'>发送</span>
+    <div class="barButtom">
+      <input type="text" v-model="message" />
+      <span class="span" @click="sendMes">发送</span>
     </div>
   </div>
-
 </template>
 <script>
-import narBar from '../../common/NavBar/NavBar'
+import narBar from "@/components/common/NavBar/NavBar";
 export default {
   components: {
-    narBar
+    narBar,
   },
-  data () {
+  data() {
     return {
       // 商店信息
       shop: {},
@@ -46,89 +57,89 @@ export default {
       item: {},
       // 用户
       user: {
-        img: '',
-        name: ''
+        img: "",
+        name: "",
       },
       // 发送的消息
-      message: '',
+      message: "",
       // 消息总
-      mesAll: {}
-    }
+      mesAll: {},
+    };
   },
   sockets: {
     // 接收私人消息
-    privateMsg (msg) {
-      console.log('收到消息')
-      this.mesAll[this.shop.name].push(msg)
-    }
+    privateMsg(msg) {
+      console.log("收到消息");
+      this.mesAll[this.shop.name].push(msg);
+    },
   },
-  created () {
+  created() {
     // this.getShopItem()
     // this.getUserInfo()
     // console.log(111)
   },
-  activated () {
-    this.getShopItem()
-    this.getUserInfo()
+  activated() {
+    this.getShopItem();
+    this.getUserInfo();
   },
   computed: {
-    shopName () {
+    shopName() {
       if (this.isEmptyObj(this.$route.params)) {
-        return ''
+        return "";
       } else {
-        return this.shop.name
+        return this.shop.name;
       }
-    }
+    },
   },
   methods: {
-    getShopItem () {
+    getShopItem() {
       try {
-        this.shop = this.$route.params.shop
-        this.item = this.$route.params.item
+        this.shop = this.$route.params.shop;
+        this.item = this.$route.params.item;
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
       if (this.isEmptyObj(this.$route.params)) {
-        this.$router.push('/home')
-        window.location.reload()
-        return
+        this.$router.push("/home");
+        window.location.reload();
+        return;
       }
       if (!this.mesAll[this.shop.name]) {
         // 响应式
-        this.$set(this.mesAll, this.shop.name, [])
+        this.$set(this.mesAll, this.shop.name, []);
       }
     },
-    async getUserInfo () {
+    async getUserInfo() {
       const result = await this.$http({
-        method: 'get',
-        url: 'api/users/userInfo',
+        method: "get",
+        url: "api/users/userInfo",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-        }
-      })
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
       if (result.data.success) {
-        let user = result.data.data
-        this.user.name = user.user_account
-        this.user.img = user.user_img
+        let user = result.data.data;
+        this.user.name = user.user_account;
+        this.user.img = user.user_img;
         //  链接socket
-        this.$socket.emit('connect')
-        this.$socket.emit('login', this.user.name)
+        this.$socket.emit("connect");
+        this.$socket.emit("login", this.user.name);
       } else {
-        console.log(result)
+        console.log(result);
       }
     },
-    goBack () {
-      this.$router.go(-1)
+    goBack() {
+      this.$router.go(-1);
     },
     // 发送消息
-    sendMes () {
-      const obj = {}
-      obj.msg = this.message
-      obj.img = this.user.img
-      obj.name = this.user.name
-      obj.otherName = this.shop.name
-      this.mesAll[this.shop.name].push(obj)
-      this.$socket.emit('sendPriMes', obj)
+    sendMes() {
+      const obj = {};
+      obj.msg = this.message;
+      obj.img = this.user.img;
+      obj.name = this.user.name;
+      obj.otherName = this.shop.name;
+      this.mesAll[this.shop.name].push(obj);
+      this.$socket.emit("sendPriMes", obj);
       // 测试
       // this.$socket.emit('sendPriMes', {
       //   msg: '111',
@@ -136,15 +147,17 @@ export default {
       //   name: this.user.name,
       //   otherName: this.user.name
       // })
-      this.message = ''
+      this.message = "";
     },
-    isEmptyObj (obj) {
-      return (Object.prototype.toString.call(obj) === '[object Object]')
-        && (Object.getOwnPropertyNames(obj).length === 0)
-        && (Object.getOwnPropertySymbols(obj).length === 0)
-    }
-  }
-}
+    isEmptyObj(obj) {
+      return (
+        Object.prototype.toString.call(obj) === "[object Object]" &&
+        Object.getOwnPropertyNames(obj).length === 0 &&
+        Object.getOwnPropertySymbols(obj).length === 0
+      );
+    },
+  },
+};
 </script>
 <style scoped>
 .item {
