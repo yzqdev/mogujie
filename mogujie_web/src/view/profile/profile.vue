@@ -217,9 +217,8 @@ export default {
   border-bottom-right-radius: 50px;
 }
 .headImg {
-  width: 335px;
   height: 120px;
-  margin-left: 20px;
+  margin: 0 20px;
   background: white;
   position: relative;
   top: -20px;
@@ -260,9 +259,8 @@ export default {
   border-bottom-right-radius: 10px;
 }
 .application {
-  width: 335px;
   height: 69px;
-  margin-left: 20px;
+  margin: 0 20px;
   background: white;
   border-radius: 10px;
   display: flex;
@@ -283,9 +281,8 @@ export default {
 }
 .cart {
   display: flex;
-  width: 335px;
   height: 120px;
-  margin-left: 20px;
+  margin: 0 20px;
   margin-top: 15px;
   justify-content: space-between;
 }
@@ -327,9 +324,8 @@ export default {
   border-bottom: none !important;
 }
 .order {
-  width: 335px;
   height: 100px;
-  margin-left: 20px;
+  margin: 0 20px;
   margin-top: 25px;
   background: white;
   border-radius: 10px;
@@ -370,14 +366,14 @@ export default {
   margin-left: 5px;
 }
 .finalBtn {
-  width: 335px;
+
   height: 40px;
-  margin-left: 20px;
+  margin: 0 20px;
   margin-top: 15px;
   border-radius: 10px;
 }
 .finalBtn {
-  width: 335px;
+
   height: 40px;
   background: rgb(255, 68, 102);
   margin-top: 7px;

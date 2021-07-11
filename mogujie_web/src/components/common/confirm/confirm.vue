@@ -19,6 +19,7 @@
 </template>
 <script>
 import loading from "@/components/common/loading/loading.vue";
+const serverUrl='http://localhost:8020'
 export default {
   components: {
     loading,
@@ -28,13 +29,13 @@ export default {
       deg: [0, 0, 0, 0],
       // 所有图片信息
       imgMes: [
-        { deg: 0, img: "http://localhost:3000/top1.jpg" },
-        { deg: 0, img: "http://localhost:3000/top2.jpg" },
-        { deg: 180, img: "http://localhost:3000/bottom1.png" },
-        { deg: 180, img: "http://localhost:3000/bottom2.png" },
-        { deg: 180, img: "http://localhost:3000/bottom3.png" },
-        { deg: 270, img: "http://localhost:3000/left2.png" },
-        { deg: 90, img: "http://localhost:3000/right1.png" },
+        { deg: 0, img: "http://localhost:8020/top1.jpg" },
+        { deg: 0, img: "http://localhost:8020/top2.jpg" },
+        { deg: 180, img: "http://localhost:8020/bottom1.png" },
+        { deg: 180, img: "http://localhost:8020/bottom2.png" },
+        { deg: 180, img: "http://localhost:8020/bottom3.png" },
+        { deg: 270, img: "http://localhost:8020/left2.png" },
+        { deg: 90, img: "http://localhost:8020/right1.png" },
       ],
       // 选中的图片信息
       imgNow: [],

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router/router";
+import router from "./router";
 import "../public/css/global.css";
 import "../public/font/font_xn7gg6ug1r/iconfont.css";
 import axios from "@/util/axios";

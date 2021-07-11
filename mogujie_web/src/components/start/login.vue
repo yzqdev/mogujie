@@ -1,31 +1,53 @@
 <template>
   <div>
     <div class="loginTitle">账号登录</div>
-    <div class="input">
-      <input
-        type="text"
-        v-model="loginForm.user_account"
-        placeholder="用户名"
+    <van-form @submit="login">
+      <van-field
+          v-model="loginForm.user_account"
+          name="用户名"
+          label="用户名"
+          placeholder="用户名"
+          :rules="[{ required: true, message: '请填写用户名' }]"
       />
-    </div>
-    <div class="input">
-      <input
-        type="password"
-        v-model="loginForm.user_password"
-        placeholder="密码"
+      <van-field
+          v-model="loginForm.user_password"
+          type="password"
+          name="密码"
+          label="密码"
+          placeholder="密码"
+          :rules="[{ required: true, message: '请填写密码' }]"
       />
-    </div>
-    <confirm ref="confirm"></confirm>
-    <div class="button" @click="login">登录</div>
-    <div class="goRegister" @click="goRegister">点击注册</div>
-    <!-- <loading :isShow='isLoading'
-             :radius='30'
-             :lineWidth='10'></loading> -->
+      <confirm ref="confirm"></confirm>
+      <div style="margin: 16px;">
+        <van-button round block type="info" native-type="submit">提交</van-button>
+      </div> <div style="margin: 16px;">
+        <van-button round block type="warning" @click="goRegister">点击注册</van-button>
+      </div>
+    </van-form>
+    <template v-if="false">
+      <div class="input"  >
+        <input
+            type="text"
+            v-model="loginForm.user_account"
+            placeholder="用户名"
+        />
+      </div>
+      <div class="input">
+        <input
+            type="password"
+            v-model="loginForm.user_password"
+            placeholder="密码"
+        />
+      </div>
+
+      <div class="button" @click="login">登录</div>
+      <div class="goRegister" @click="goRegister">点击注册</div>
+    </template>
+
   </div>
 </template>
 <script>
 import confirm from "@/components/common/confirm/confirm";
-// import loading from '@/components/common/loading/loading.vue'
 export default {
   components: {
     confirm,

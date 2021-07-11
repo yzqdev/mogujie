@@ -205,10 +205,8 @@ input::-webkit-input-placeholder {
   border-bottom: 1px solid #eaeaea;
 }
 .finalGister {
-  width: 325px;
   height: 50px;
-  margin-left: 25px;
-  margin-top: 40px;
+ margin: 40px 25px 0;
   line-height: 50px;
   text-align: center;
   background: #ff5777;

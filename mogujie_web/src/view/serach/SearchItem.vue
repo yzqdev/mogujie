@@ -7,8 +7,7 @@
       <div slot="center">
         <input
           type="text"
-          name=""
-          id=""
+
           v-model="searchText"
           @focus="goSearch"
         />
@@ -101,11 +100,11 @@ export default {
     },
   },
   created() {
-    this.searchText = this.$route.params.searchText;
+    this.searchText = this.$route.query.searchText;
     this.getGoodsList();
   },
   activated() {
-    this.searchText = this.$route.params.searchText;
+    this.searchText = this.$route.query.searchText;
     this.getGoodsList();
   },
   methods: {
@@ -200,7 +199,6 @@ input {
 .header {
   display: flex;
   background: white;
-  width: 375px;
   overflow: hidden;
 }
 .header div {

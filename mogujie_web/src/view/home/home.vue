@@ -41,8 +41,7 @@
     <!-- 商品 -->
     <div
       v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="loading"
-      infinite-scroll-distance="1"
+
       :infinite-scroll-immediate-check="true"
     >
       <div class="itemPicture">
@@ -150,7 +149,9 @@ export default {
   },
   methods: {
     iconGoSearch(text) {
-      this.$router.push({ name: "serachItem", params: { searchText: text } });
+      console.log(`%ctext`,`color:red;font-size:16px;background:transparent`)
+      console.log(text)
+      this.$router.push({ path:'/searchItem', query: { searchText: text } });
     },
     async getGoodsList(query, num) {
       const result = await this.$http({
